@@ -1,0 +1,14 @@
+<fieldset class="survey-field" aria-describedby="{{ field.name }}-errors">
+    <legend>{{ field.label.text }}</legend>
+    <div class="survey-options">
+        {{ for choice in field }}
+        <label class="survey-option" for="{{ choice.id }}">
+            {{ choice }}
+            <span>{{ choice.label.text }}</span>
+        </label>
+        {{ endfor }}
+    </div>
+    <div class="survey-field-errors" id="{{ field.name }}-errors" role="alert">
+        {{ formfield_errors field.name }}
+    </div>
+</fieldset>

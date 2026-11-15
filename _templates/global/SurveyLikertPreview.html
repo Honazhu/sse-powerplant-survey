@@ -1,0 +1,14 @@
+<fieldset class="survey-scale" aria-describedby="{{ scale_id }}-note">
+    <legend>{{ scale_title }}</legend>
+    <p class="survey-help" id="{{ scale_id }}-note">UI preview only · Question wording and scale labels TBD.</p>
+    <div class="survey-rating-grid">
+        {{ for score in [1,2,3,4,5,6,7,8,9,10] }}
+        <label class="survey-rating" for="{{ scale_id }}-{{ score }}">
+            <input type="radio" id="{{ scale_id }}-{{ score }}" name="ui_preview_{{ scale_id }}"
+                   value="{{ score }}" form="survey-preview-only" aria-label="{{ score }} out of 10">
+            <span>{{ score }}</span>
+        </label>
+        {{ endfor }}
+    </div>
+    <div class="survey-scale-anchors"><span>1 · Label TBD</span><span>10 · Label TBD</span></div>
+</fieldset>

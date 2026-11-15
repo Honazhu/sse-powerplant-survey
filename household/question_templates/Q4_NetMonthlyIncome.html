@@ -1,0 +1,7 @@
+<section class="survey-question" data-question="Q4">
+{{ include 'global/SurveyNumberField.html' with field=form.income_thousand_sek & unit="× 1,000 SEK/month" & minimum="0" }}
+<p class="survey-help" id="income-instruction">{{ income_question.instruction }}</p>
+<p class="survey-help">For example: 15 = 15,000 SEK/month; 25 = 25,000 SEK/month; 40 = 40,000 SEK/month.</p>
+<label class="survey-option survey-refusal" for="id_income_not_disclosed">{{ form.income_not_disclosed }}<span>{{ income_question.refusal }}</span></label>
+{{ formfield_errors 'income_not_disclosed' }}
+</section>

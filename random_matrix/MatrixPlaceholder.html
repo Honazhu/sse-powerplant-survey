@@ -1,0 +1,34 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Housing scenario{{ endblock }}
+{{ block survey_intro }}Please consider the characteristics of both housing options before making your choice.{{ endblock }}
+{{ block survey_body }}
+{{ include 'global/SurveyBackground.html' with heading="Hypothetical comparison · DEMO" & text="This is a layout preview, not a housing choice experiment. Housing A shows an existing fictional example. Housing B has no defined attributes yet. Preview selections are not submitted or saved." }}
+<div class="survey-housing-grid" data-demo-scenario="{{ scenario.scenario_id }}">
+    <section class="survey-housing-card" aria-labelledby="housing-a-title">
+        <div class="survey-card-heading"><h2 id="housing-a-title">Housing A</h2><span class="survey-tag">DEMO</span></div>
+        <dl class="survey-attributes">
+            <div><dt>Facility type</dt><dd>DEMO · Type TBD</dd></div>
+            <div><dt>Distance</dt><dd>{{ scenario.nuclear_distance_km }} <span>km</span></dd></div>
+            <div><dt>Monthly housing cost</dt><dd>{{ scenario.housing_price }}<small>{{ scenario.price_unit }}</small></dd></div>
+            <div><dt>Housing size</dt><dd>{{ scenario.housing_size_m2 }} <span>m²</span></dd></div>
+        </dl>
+    </section>
+    <section class="survey-housing-card" aria-labelledby="housing-b-title">
+        <div class="survey-card-heading"><h2 id="housing-b-title">Housing B</h2><span class="survey-tag">PLACEHOLDER</span></div>
+        <dl class="survey-attributes">
+            <div><dt>Facility type</dt><dd>DEMO · Type TBD</dd></div>
+            <div><dt>Distance</dt><dd>Not defined</dd></div>
+            <div><dt>Monthly housing cost</dt><dd>Not defined<small>DEMO placeholder</small></dd></div>
+            <div><dt>Housing size</dt><dd>Not defined</dd></div>
+        </dl>
+    </section>
+</div>
+<fieldset class="survey-field" aria-describedby="housing-preview-note">
+    <legend>Choice control preview</legend>
+    <p id="housing-preview-note" class="survey-help">Try selecting an option to preview the interface. No housing choice is recorded.</p>
+    <div class="survey-options survey-options-pair">
+        <label class="survey-option" for="preview-housing-a"><input id="preview-housing-a" type="radio" name="ui_preview_housing" value="A" form="survey-preview-only"><span>Housing A</span></label>
+        <label class="survey-option" for="preview-housing-b"><input id="preview-housing-b" type="radio" name="ui_preview_housing" value="B" form="survey-preview-only"><span>Housing B</span></label>
+    </div>
+</fieldset>
+{{ endblock }}

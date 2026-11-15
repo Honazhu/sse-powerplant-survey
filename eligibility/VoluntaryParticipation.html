@@ -1,0 +1,30 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Participation, privacy &amp; cookies{{ endblock }}
+{{ block survey_intro }}Please read the information below before deciding whether to participate.{{ endblock }}
+{{ block survey_body }}
+<section class="survey-copy">
+<h2>Privacy &amp; Data Use</h2>
+<p>Your participation in this survey is voluntary.</p>
+<p>Your responses will be used for a university assignment at the Stockholm School of Economics and shared with the course instructor for assessment.</p>
+<p>We do not ask for your name, email address, or exact home address. Your answers are linked to a Survey Reference ID.</p>
+<p>If you wish to request the deletion of your survey response, please email:</p>
+<p><strong>43086@student.hhs.se</strong></p>
+<p>Please include your Survey Reference ID so that we can locate the relevant response.</p>
+<p>Deletion requests will be reviewed in accordance with applicable data protection requirements.</p>
+<p>You may stop at any time by closing the page. Closing the page does not delete answers already submitted.</p>
+<p>The server records page completion times, including time away from the tab. Timing is independent of the optional cookie test.</p>
+</section>
+{{ include 'global/SurveyRadioField.html' with field=form.willing_to_participate }}
+<section class="survey-question" aria-labelledby="cookie-heading">
+<h2 id="cookie-heading">Cookie preferences</h2>
+<p>If you allow this optional browser test, it writes, reads and immediately deletes a temporary first-party cookie containing only a test value, with no participant identifier.</p>
+<p>You can decline the test and continue. This choice controls this test only, not cookies used by oTree or a future host. No optional analytics or advertising cookies are added.</p>
+<p class="survey-help">Choose either option if you agree to participate. No cookie choice is required if you decline participation.</p>
+{{ include 'global/SurveyRadioField.html' with field=form.cookies_allowed }}
+<input type="hidden" name="cookie_probe_status" id="cookie-probe-status" value="not_tested">
+{{ formfield_errors 'cookie_probe_status' }}
+<p class="survey-status" id="cookie-probe-message" aria-live="polite">Browser test has not run.</p>
+<noscript><p class="survey-status">JavaScript is disabled. Browser support cannot be tested; you may continue.</p></noscript>
+</section>
+{{ endblock }}
+{{ block scripts }}<script src="{{ static 'cookie_probe.js' }}"></script>{{ endblock }}

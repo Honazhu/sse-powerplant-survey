@@ -1,0 +1,17 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Household information{{ endblock }}
+{{ block survey_intro }}Please tell us a little about your household circumstances.{{ endblock }}
+{{ block survey_body }}
+<aside class="survey-background">
+    <h2>Amounts in Swedish kronor</h2>
+    <p>All monetary amounts in this survey are expressed in Swedish kronor (SEK).</p>
+    <p>If you pay rent or receive income in another currency, please enter an approximate equivalent in SEK.</p>
+</aside>
+<div data-household-questions>
+{{ include 'household/question_templates/Q2_AgeGroup.html' }}
+{{ include 'household/question_templates/Q3_HousingRent.html' }}
+{{ include 'household/question_templates/Q4_NetMonthlyIncome.html' }}
+{{ include 'household/question_templates/Q5_PowerPlantExposure.html' }}
+</div>
+{{ endblock }}
+{{ block scripts }}<script src="{{ static 'survey_ui/household.js' }}" defer></script>{{ endblock }}

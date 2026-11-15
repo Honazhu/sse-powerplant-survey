@@ -1,0 +1,12 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Nuclear & economic attitudes{{ endblock }}
+{{ block survey_intro }}A preview of how opinions and priorities will be expressed.{{ endblock }}
+{{ block survey_body }}
+{{ include 'global/SurveyBackground.html' with heading="Rating scales · UI preview" & text="These five components preview a 1–10 response scale. Questions and endpoint labels are not yet defined. Selections are not submitted or saved. The future questionnaire will show one question per page." }}
+{{ include 'global/SurveyLikertPreview.html' with scale_id="support" & scale_title="Nuclear energy support" }}
+{{ include 'global/SurveyLikertPreview.html' with scale_id="risk" & scale_title="Nuclear risk concern" }}
+{{ include 'global/SurveyLikertPreview.html' with scale_id="economy" & scale_title="Economic impact of nuclear" }}
+{{ include 'global/SurveyLikertPreview.html' with scale_id="climate" & scale_title="Climate impact of nuclear" }}
+{{ include 'global/SurveyLikertPreview.html' with scale_id="cost" & scale_title="Housing cost sensitivity" }}
+
+{{ endblock }}

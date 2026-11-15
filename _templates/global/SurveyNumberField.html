@@ -1,0 +1,13 @@
+<div class="survey-number-field">
+<label class="survey-question-label" for="id_{{ field.name }}">{{ field.label.text }}</label>
+<div class="survey-number-row">
+<input class="survey-number" type="text" inputmode="numeric"
+       id="id_{{ field.name }}" name="{{ field.name }}" value="{{ field._value() }}"
+       data-minimum="{{ minimum }}" aria-describedby="{{ field.name }}-unit {{ field.name }}-errors"
+       {{ if field.errors }}aria-invalid="true"{{ endif }} autocomplete="off">
+<span id="{{ field.name }}-unit">{{ unit }}</span>
+</div>
+<div class="survey-field-errors" id="{{ field.name }}-errors" aria-live="polite">
+{{ formfield_errors field.name }}
+</div>
+</div>

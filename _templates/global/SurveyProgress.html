@@ -1,0 +1,7 @@
+<p class="survey-section" aria-label="Current section">
+{{ if C.NAME_IN_URL == 'eligibility' }}<span>Part A</span> Eligibility &amp; Data Protection
+{{ elif C.NAME_IN_URL == 'random_matrix' }}<span>Part B</span> Housing Choice
+{{ elif C.NAME_IN_URL == 'household' }}<span>Part C</span> Household Information
+{{ elif C.NAME_IN_URL == 'attitudes' }}<span>Part D</span> Attitudes
+{{ endif }}
+</p>

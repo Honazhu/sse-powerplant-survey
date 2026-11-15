@@ -1,0 +1,33 @@
+{{ extends "otree/Page.html" }}
+{{ block head_title }}Power Plant Proximity &amp; Housing Preferences Survey · SSE 5327{{ endblock }}
+{{ block tab_title_data }}{{ endblock }}
+{{ block title }}{{ endblock }}
+{{ block debug_info }}{{ endblock }}
+{{ block global_styles }}
+<link rel="preload" href="{{ static 'survey_ui/fonts/Marcellus/Marcellus-Regular.ttf' }}" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="{{ static 'survey_ui/fonts/Inter/Inter-VariableFont_opsz,wght.ttf' }}" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="{{ static 'survey_ui/survey.css' }}">
+<script src="{{ static 'survey_ui/survey.js' }}" defer></script>
+{{ endblock }}
+{{ block body_main }}
+<a class="survey-skip" href="#survey-main">Skip to questionnaire</a>
+{{ include 'global/SurveyHeader.html' }}
+<main lang="en" id="survey-main" tabindex="-1">
+    {{ super() }}
+</main>
+<footer lang="en" class="survey-footer">Student course research · Local demonstration only</footer>
+{{ endblock }}
+{{ block content }}
+{{ include 'global/SurveyReferenceBadge.html' }}
+<div class="survey-masthead">
+    <span class="survey-eyebrow">Power Plant Proximity &amp; Housing Preferences Survey</span>
+    <span class="survey-badge">DEMO</span>
+</div>
+{{ include 'global/SurveyProgress.html' }}
+<div class="survey-heading">
+    <h1>{{ block survey_title }}Questionnaire{{ endblock }}</h1>
+    <p class="survey-intro">{{ block survey_intro }}{{ endblock }}</p>
+</div>
+{{ block survey_body }}{{ endblock }}
+{{ block survey_navigation }}{{ include 'global/SurveyNavigation.html' }}{{ endblock }}
+{{ endblock }}

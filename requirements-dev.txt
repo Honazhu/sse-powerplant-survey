@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=8,<10
+pandas>=2.2,<3
+# Required by oTree 6.0.15 command-line bots (not a runtime survey dependency).
+requests>=2.32,<3

@@ -1,0 +1,21 @@
+<fieldset class="survey-field survey-attitude-question" aria-describedby="{{ question.number }}-errors" data-question="{{ question.number }}" data-field="{{ question.field }}">
+    <legend id="{{ question.number }}-statement">{{ question.number }}. {{ question.wording }}</legend>
+    <div class="survey-field-errors" id="{{ question.number }}-errors">{{ formfield_errors question.field }}</div>
+    <div class="survey-slider" data-slider hidden>
+        <input type="range" min="-2" max="2" step="1" value="0" autocomplete="off"
+               aria-labelledby="{{ question.number }}-statement"
+               aria-describedby="{{ question.number }}-status {{ question.number }}-hint {{ question.number }}-errors {{ question.number }}-client-error"
+               aria-required="true" aria-valuetext="Not answered" disabled>
+        <div class="survey-slider-labels" role="group" aria-labelledby="{{ question.number }}-statement">
+            {{ for value, label in question.choices }}<button type="button" data-score="{{ value }}" aria-pressed="false">{{ label }}</button>{{ endfor }}
+        </div>
+        <p class="survey-slider-status" id="{{ question.number }}-status" role="status">Not answered</p>
+        <p class="survey-help survey-slider-hint" id="{{ question.number }}-hint" data-slider-hint>Drag the circle or tap a position to answer.</p>
+        <p class="survey-slider-error" data-slider-error id="{{ question.number }}-client-error" hidden>Please choose a response for this statement.</p>
+    </div>
+    <div class="survey-options survey-attitude-options" data-radio-fallback>
+        {{ for option in field }}
+        <label class="survey-option">{{ option }}<span>{{ option.label.text }}</span></label>
+        {{ endfor }}
+    </div>
+</fieldset>

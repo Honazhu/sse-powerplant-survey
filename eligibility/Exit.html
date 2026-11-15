@@ -1,0 +1,5 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Thank you for your interest!{{ endblock }}
+{{ block survey_intro }}{{ if participant.exit_reason == 'under_18' }}Unfortunately, this survey is open only to participants aged 18 or above.{{ else }}You have chosen not to participate in this survey.{{ endif }}{{ endblock }}
+{{ block survey_body }}<p>Thank you for your time and understanding.</p><p>You may close this window.</p>{{ endblock }}
+{{ block survey_navigation }}{{ endblock }}

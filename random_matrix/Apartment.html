@@ -1,0 +1,8 @@
+<section class="survey-housing-card" aria-labelledby="apartment-{{ side }}-title" data-apartment="{{ side }}">
+    <div class="survey-card-heading"><h2 id="apartment-{{ side }}-title">Apartment {{ side }}</h2></div>
+    <dl class="survey-attributes">
+        <div><dt>Floor Area</dt><dd data-attribute="size_m2">{{ apartment.size_m2 }} <span>m²</span></dd></div>
+        <div><dt>Distance to Power Plant</dt><dd data-attribute="distance_km">{{ apartment.distance_km }} <span>km</span></dd></div>
+        <div><dt>Monthly Rent</dt><dd data-attribute="rent_sek_month">{{ rent_display }} <span>SEK/month</span></dd></div>
+    </dl>
+</section>

@@ -1,0 +1,7 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Age confirmation{{ endblock }}
+{{ block survey_intro }}This questionnaire is intended for adults aged 18 and over.{{ endblock }}
+{{ block survey_body }}
+{{ include 'global/SurveyBackground.html' with heading="Before you continue" & text="For this demonstration, answer on behalf of an invented respondent. An answer of No will end the test. No exact age or date of birth is requested." }}
+{{ include 'global/SurveyRadioField.html' with field=form.adult_confirmed }}
+{{ endblock }}

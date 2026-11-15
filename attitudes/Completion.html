@@ -1,0 +1,8 @@
+{{ extends "global/SurveyBase.html" }}
+{{ block survey_title }}Completion{{ endblock }}
+{{ block survey_intro }}Thank you for completing the questionnaire.{{ endblock }}
+{{ block survey_body }}
+{{ include 'global/SurveyBackground.html' with heading="Your responses have been saved" & text="You have completed the housing choices and attitude questions. Thank you. You may close this window." }}
+<p class="survey-help">This was a synthetic Pilot of a student course project, using invented responses.</p>
+{{ endblock }}
+{{ block survey_navigation }}{{ endblock }}

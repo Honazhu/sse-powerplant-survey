@@ -1,0 +1,8 @@
+<section class="survey-question" data-question="Q3">
+<p class="survey-help">{{ rent_question.description }}</p>
+{{ include 'global/SurveyRadioField.html' with field=form.rent_status }}
+<div id="rent-amount" class="survey-conditional">
+{{ include 'global/SurveyNumberField.html' with field=form.monthly_rent_sek & unit="SEK/month" & minimum="1" }}
+<p class="survey-help">{{ rent_question.instruction }} Only required if you pay rent.</p>
+</div>
+</section>
