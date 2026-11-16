@@ -2,16 +2,15 @@
 {{ block survey_title }}Household information{{ endblock }}
 {{ block survey_intro }}Please tell us a little about your household circumstances.{{ endblock }}
 {{ block survey_body }}
-<aside class="survey-background">
-    <h2>Amounts in Swedish kronor</h2>
-    <p>All monetary amounts in this survey are expressed in Swedish kronor (SEK).</p>
-    <p>If you pay rent or receive income in another currency, please enter an approximate equivalent in SEK.</p>
-</aside>
+<p>All monetary amounts are expressed in Swedish kronor (SEK). If you use another currency, choose an approximate equivalent in SEK.</p>
 <div data-household-questions>
-{{ include 'household/question_templates/Q2_AgeGroup.html' }}
-{{ include 'household/question_templates/Q3_HousingRent.html' }}
-{{ include 'household/question_templates/Q4_NetMonthlyIncome.html' }}
-{{ include 'household/question_templates/Q5_PowerPlantExposure.html' }}
-</div>
-{{ endblock }}
+{{ include 'global/SurveyRadioField.html' with field=form.age_group }}
+{{ formfield 'residence_code' }}
+{{ include 'global/SurveyRadioField.html' with field=form.rent_status }}
+<div id="rent-amount">{{ include 'global/SurveyRadioField.html' with field=form.rent_category }}
+<p class="survey-help"><em>If you share a flat with people who are not your family, please give your own amount.</em></p></div>
+{{ include 'global/SurveyRadioField.html' with field=form.income_category }}
+{{ include 'global/SurveyRadioField.html' with field=form.children_under_18 }}
+{{ include 'global/SurveyRadioField.html' with field=form.education_completed }}
+</div>{{ endblock }}
 {{ block scripts }}<script src="{{ static 'survey_ui/household.js' }}" defer></script>{{ endblock }}

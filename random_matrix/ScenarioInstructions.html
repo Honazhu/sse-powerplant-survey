@@ -1,19 +1,10 @@
 {{ extends "global/SurveyBase.html" }}
-{{ block survey_title }}<span id="rental-scenario">Choosing a Rental Home</span>{{ endblock }}
-{{ block survey_body }}
-<section class="survey-copy survey-dce-scenario" aria-labelledby="rental-scenario" data-wording-version="{{ wording_version }}">
-    <p>Imagine choosing between two rental homes in Sweden. In each question, the homes are located at different distances from the same power plant. The type of power plant is shown for each home.</p>
-    <p>The homes are otherwise identical, including their size, quality, lease terms, neighbourhood amenities, commuting time, public transport access and moving costs. The power plant is not visible from either home.</p>
-</section>
-<p class="survey-help" id="hypothetical-context">These are hypothetical housing scenarios rather than descriptions of actual available homes.</p>
-<aside class="survey-background" id="budget-reminder" aria-labelledby="budget-reminder-heading">
-    <p id="budget-reminder-heading"><strong>Please consider your household budget.</strong></p>
-    <p>Higher rent leaves less money for other goods and services. All rents are stated in SEK per month for the entire home.</p>
-</aside>
-{{ endblock }}
-{{ block survey_navigation }}
-<div class="survey-navigation">
-    <p class="survey-navigation-note">Demonstration only. Please use invented responses.</p>
-    <div class="survey-next"><button type="submit" class="otree-btn-next btn btn-primary" data-continue-label="Continue to Housing Choices">Continue to Housing Choices</button></div>
-</div>
-{{ endblock }}
+{{ block survey_title }}Choosing a rental home{{ endblock }}
+{{ block survey_body }}<section class="survey-copy">
+<p>Imagine you are looking for a rental home in Sweden. On the next pages you will see <strong>six pairs of homes</strong>. For each pair, please choose the home you would rent.</p>
+<p>Both homes in a pair are near the same type of power plant, either a <strong>nuclear power plant</strong> or an <strong>oil-fired power plant</strong>. The type changes from pair to pair. In all cases, the plant is in regular operation.</p>
+<p>The two homes in each pair can differ in two ways:</p><ul><li><strong>Monthly rent</strong></li><li><strong>Distance to the power plant</strong></li></ul>
+<p>The homes are otherwise identical, including their size, condition, neighbourhood amenities, and travel time to work or study. Moving costs are the same. The plant is not visible from either home.</p>
+<p>The standard rent for these homes is <strong>SEK 6,500 per month</strong>. Some homes cost more: for example, a home with a rent of SEK 7,500 costs <strong>SEK 1,000 more per month</strong>, for as long as you live there.</p>
+<p>Please consider your household budget: paying more rent would leave less money for other purchases or savings.</p>
+<p>Each pair is a separate choice. Please answer each one as if it were the only choice you had.</p></section>{{ endblock }}

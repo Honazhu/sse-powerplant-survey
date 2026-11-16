@@ -1,13 +1,7 @@
-# SSE 5327 — Power Plant Proximity & Housing Preferences Survey
+# Housing survey V5 — isolated synthetic development candidate
 
-V4 source packaging candidate: V3.3 flow and attitudes, V3.3.1 slider UI, frozen V2.4 housing design. **Synthetic testing only; the Live configuration is blocked.** This is not authorization to recruit or deploy. Read [the release audit](docs/V4_RELEASE_AUDIT.md) and [handover](docs/V4_HANDOVER.md) before use.
+**Not ready for participant testing or deployment.** This directory is a V5 development copy of the uncommitted V4 release package. V4 remains unchanged. The Live guard still rejects non-synthetic sessions. Read `V5_IMPLEMENTATION_REPORT.md`, `V5_TEST_REPORT.md`, `V5_SCHEMA_CHANGELOG.md`, and `V5_DEPLOYMENT_REVIEW.md` before review. Older V4 documents are historical references, not current instructions.
 
-Use Python 3.11 and install `requirements-dev.txt` in a new virtual environment for local testing and analysis. Do not point current models at an existing research database. To run a fresh isolated synthetic pilot:
+Use Python 3.11 and the pinned oTree 6.0.15 with `requirements-dev.txt`. A disposable local synthetic project can be created with `python -m scripts.pilot_server --port 8000`; it strips database/production environment variables and uses a new directory. Use invented answers only. Run the V5 checks with `python -m pytest -q tests/test_v5_design.py tests/test_v5_http.py`; the HTTP test needs loopback socket access. The inherited full V4 test suite has not been ported to the six-question flow.
 
-```sh
-python -m scripts.pilot_server --port 8000
-```
-
-The helper creates a separate temporary project and database. Its printed address is local only; fill in invented answers. For tests: `python -m pytest -q` and `node tests/test_cookie_probe.js`. Tests requiring excluded historical CSV fixtures are explicitly skipped unless those fixtures are provided in a separate controlled harness. Chrome browser acceptance requires the locally installed Chrome path used by `scripts/run_v33_browser.py`; run it in a disposable copy, because it generates screenshots and exports.
-
-Production uses `otree==6.0.15` and pinned `psycopg2-binary==2.9.13`. Analysis and development additionally need `requirements-dev.txt`. Local synthetic PostgreSQL integration passed; Heroku deployment and the hosted pilot remain unverified. See [V4.1 PostgreSQL deployment fix](docs/V4_1_POSTGRESQL_DEPLOYMENT_FIX.md). Historical documents in `docs/` are references, not authoritative current-flow descriptions. No respondent records or credentials belong in this repository.
+The formal V5 respondent-wide CSV is the oTree **attitudes / custom_export**, generated from the database. The separately named `custom_export_timing` contains consenting completed respondents only. Native oTree exports, the built-in page-times download, and old V4 scripts are operational/historical exports and are **not** the formal V5 completed-only research CSV. Treat every export or snapshot as sensitive. No automated deletion of saved snapshots exists. Do not run a V5 deployment against a V4 database.

@@ -1,7 +1,7 @@
 import os
 import secrets
 
-SURVEY_FLOW_VERSION = 'V3.3'
+SURVEY_FLOW_VERSION = '5.0.0'
 HOUSING_DESIGN_VERSION = 'V2.4'
 APP_SEQUENCE = ['eligibility', 'random_matrix', 'household', 'attitudes']
 SESSION_CONFIGS = [
@@ -13,8 +13,8 @@ SESSION_CONFIGS = [
         study_mode='pilot',
         data_class='synthetic',
         matrix_version='V2.4',
-        survey_version='V2.4',
-        treatment_design_version='V2.4',
+        survey_version='5.0.0',
+        treatment_design_version='V5.0',
         attitudes_version='V3.3',
         survey_flow_version=SURVEY_FLOW_VERSION,
         housing_design_version=HOUSING_DESIGN_VERSION,
@@ -34,7 +34,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 PARTICIPANT_FIELDS = [
     'eligible', 'exit_reason', 'household_complete', 'demo_assignment', 'finished',
-    'cookies_allowed',
+    'cookies_allowed', 'show_reference',
 ]
 SESSION_FIELDS = []
 LANGUAGE_CODE = 'en'

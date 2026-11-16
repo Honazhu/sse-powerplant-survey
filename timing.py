@@ -3,6 +3,17 @@
 V1 can map one-question pages to question IDs. This is wall-clock elapsed time,
 including network delay and time away from the tab, not active attention time.
 """
+from otree.api import Page
+
+
+class ConsentTimingPage(Page):
+    # Pinned oTree 6.0.15 records page completions unconditionally in a batch.
+    # This hook is intentionally tested against that version before deployment.
+    def _record_page_completion_time(self):
+        if self.participant.cookies_allowed is True:
+            super()._record_page_completion_time()
+
+
 import csv
 from io import StringIO
 
@@ -45,7 +56,8 @@ def export_page_durations(players):
     """oTree custom_export adapter; filters native events to selected players."""
     from otree.export import export_page_times
 
-    allowed = {(p.session.code, p.participant.code) for p in players}
+    allowed = {(p.session.code, p.participant.code) for p in players
+               if p.participant.cookies_allowed is True}
     buffer = StringIO()
     export_page_times(buffer)
     buffer.seek(0)

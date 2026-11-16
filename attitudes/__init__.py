@@ -1,4 +1,5 @@
 from otree.api import *
+from timing import ConsentTimingPage
 from timing import export_page_durations
 import time
 from .questions import (ATTITUDES_VERSION, TITLE, INTRODUCTION, BY_FIELD, FORM_FIELDS,
@@ -58,7 +59,7 @@ def require_current_attitudes(player):
         raise RuntimeError('Attitudes version is missing or historical. Use a new V3.3 Pilot; historical records are not relabelled.')
 
 
-class AttitudeSurvey(Page):
+class AttitudeSurvey(ConsentTimingPage):
     form_model = 'player'
     form_fields = FORM_FIELDS
 
@@ -89,13 +90,15 @@ class AttitudeSurvey(Page):
         require_current_attitudes(player)
         if player.field_maybe_none('attitudes_submitted_at') is not None:
             return
+        from completion_v5 import validate_complete
+        validate_complete(player)
         player.attitudes_completed = True
         player.attitudes_submitted_at = time.time()
         player.completed = True
         player.participant.finished = True
 
 
-class Completion(Page):
+class Completion(ConsentTimingPage):
     @staticmethod
     def is_displayed(player):
         return player.participant.eligible and player.field_maybe_none('attitudes_completed') is True
@@ -110,4 +113,16 @@ page_sequence = [AttitudeSurvey, Completion]
 
 
 def custom_export(players):
-    yield from export_page_durations(players)
+    from completion_v5 import export_completed
+    yield from export_completed(players)
+
+
+def custom_export_timing(players):
+    # A separate opt-in export, also restricted to completed responses.
+    from completion_v5 import validate_complete
+    eligible = []
+    for player in players:
+        if player.participant.finished and player.field_maybe_none('attitudes_completed') is True and player.participant.cookies_allowed is True:
+            validate_complete(player)
+            eligible.append(player)
+    yield from export_page_durations(eligible)

@@ -1,17 +1,18 @@
 from otree.api import *
+from timing import ConsentTimingPage
 import json
 import time
 from .randomization import assign_once, displayed_task, initialize_plan
 from .facility_design import (FACILITY_LABELS, NUMERIC_MATRIX_VERSION, NUMERIC_MATRIX_HASH,
                               TREATMENT_DESIGN_VERSION, SURVEY_VERSION, validate_plan)
 
-WORDING_VERSION = 'V2.4'
+WORDING_VERSION = '5.0.0'
 
 
 class C(BaseConstants):
     NAME_IN_URL = 'random_matrix'
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 4
+    NUM_ROUNDS = 6
 
 
 class Subsession(BaseSubsession):
@@ -54,7 +55,7 @@ class Player(BasePlayer):
     design_hash = models.StringField()
     block_id = models.StringField()
     # Participant/module metadata is authoritative in round 1 only.
-    task_count = models.IntegerField(initial=4)
+    task_count = models.IntegerField(initial=6)
     tasks_answered = models.IntegerField(initial=0)
     module_started = models.BooleanField(initial=False)
     module_completed = models.BooleanField(initial=False)
@@ -121,7 +122,7 @@ def instruction_context(player):
     # Validate the saved treatment plan without allocating or starting task timing.
     validate_plan(json.loads(player.in_round(1).subsession.allocation_plan_json))
 
-class ScenarioInstructions(Page):
+class ScenarioInstructions(ConsentTimingPage):
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1 and player.participant.eligible
@@ -138,7 +139,7 @@ class ScenarioInstructions(Page):
         instruction_context(player)
 
 
-class Choice(Page):
+class Choice(ConsentTimingPage):
     form_model = 'player'
     form_fields = ['choice']
 
@@ -152,7 +153,8 @@ class Choice(Page):
         assign_once(player)
         task = displayed_task(player)
         if not player.task_displayed:
-            player.task_started_at = time.time()
+            if player.participant.cookies_allowed is True:
+                player.task_started_at = time.time()
             player.task_displayed = True
         # Display strings only: preserve the persisted integer attributes/export.
         return dict(task=task, power_plant_context=FACILITY_LABELS[task['facility_type']],
@@ -166,7 +168,7 @@ class Choice(Page):
         task = displayed_task(player)
         if player.choice not in ('A', 'B'):
             raise RuntimeError('A submitted task must contain exactly one A/B choice.')
-        if player.field_maybe_none('task_submitted_at') is not None:
+        if player.field_maybe_none('task_completed') is True:
             return
         chosen = task[player.choice]
         player.chosen_near20 = chosen['near20']
@@ -175,18 +177,24 @@ class Choice(Page):
         player.chosen_rent_sek = chosen['rent_sek_month']
         player.chosen_far = int(chosen['distance_km'] == 50)
         player.task_completed = True
-        player.task_submitted_at = time.time()
-        start = player.field_maybe_none('task_started_at')
-        if start is None:
-            player.task_timing_status = 'missing_start'
-        elif player.task_submitted_at < start:
-            player.task_timing_status = 'clock_reversed'
+        if player.participant.cookies_allowed is True:
+            player.task_submitted_at = time.time()
+            start = player.field_maybe_none('task_started_at')
+            if start is None:
+                player.task_timing_status = 'missing_start'
+            elif player.task_submitted_at < start:
+                player.task_timing_status = 'clock_reversed'
+            else:
+                player.task_duration_s = player.task_submitted_at - start
+                player.task_timing_status = 'ok'
         else:
-            player.task_duration_s = player.task_submitted_at - start
-            player.task_timing_status = 'ok'
+            player.task_started_at = None
+            player.task_submitted_at = None
+            player.task_duration_s = None
+            player.task_timing_status = 'no_consent'
         first = player.in_round(1)
-        first.tasks_answered = sum(p.field_maybe_none('task_submitted_at') is not None
-                                   for p in player.in_rounds(1, 4))
+        first.tasks_answered = sum(p.field_maybe_none('task_completed') is True
+                                   for p in player.in_rounds(1, 6))
         first.module_completed = first.tasks_answered == C.NUM_ROUNDS
 
 
@@ -194,8 +202,6 @@ page_sequence = [ScenarioInstructions, Choice]
 
 
 def custom_export(players):
-    from .exports import TASK_EXPORT_FIELDS, task_record
-    yield TASK_EXPORT_FIELDS
-    for player in players:
-        row = task_record(player)
-        yield [row[field] for field in TASK_EXPORT_FIELDS]
+    # Official V5 data are exported by attitudes.custom_export after completion.
+    yield ['notice']
+    yield ['Use the V5 completed-response export from attitudes.']

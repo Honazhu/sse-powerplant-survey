@@ -1,4 +1,5 @@
 from otree.api import *
+from timing import ConsentTimingPage
 from .questions import AGE_WORDING, AGE_CHOICES, CONSENT_WORDING, CONSENT_CHOICES
 
 
@@ -28,8 +29,9 @@ class Player(BasePlayer):
         choices=AGE_CHOICES,
     )
     cookies_allowed = models.BooleanField(
-        label='DEMO: Allow a temporary cookie to test browser support?',
-        choices=[[True, 'Allow the test'], [False, 'Do not allow the test']],
+        label='Allow cookies to record time spent on each page?',
+        choices=[[True, 'Yes, allow cookies and page timing.'], [False, 'No, continue without page timing.']],
+        widget=widgets.RadioSelect,
         blank=True,  # A participation refusal must not require a cookie choice.
     )
     cookie_probe_status = models.StringField(
@@ -55,9 +57,10 @@ def creating_session(subsession):
         participant.household_complete = False
         participant.finished = False
         participant.cookies_allowed = None
+        participant.show_reference = False
 
 
-class AgeConfirmation(Page):
+class AgeConfirmation(ConsentTimingPage):
     form_model = 'player'
     form_fields = ['adult_confirmed']
 
@@ -68,6 +71,7 @@ class AgeConfirmation(Page):
         player.participant.eligible = False
         player.exit_reason = 'not_screened' if player.adult_confirmed else 'under_18'
         player.participant.exit_reason = player.exit_reason
+        player.participant.show_reference = player.adult_confirmed
 
 
 class Introduction(Page):
@@ -76,21 +80,17 @@ class Introduction(Page):
         return player.field_maybe_none('adult_confirmed') is True
 
 
-class VoluntaryParticipation(Page):
+class VoluntaryParticipation(ConsentTimingPage):
+    @staticmethod
+    def vars_for_template(player):
+        return dict(show_reference=True)
+
     form_model = 'player'
-    form_fields = ['willing_to_participate', 'cookies_allowed', 'cookie_probe_status']
+    form_fields = ['willing_to_participate', 'cookies_allowed']
 
     @staticmethod
     def is_displayed(player):
         return player.field_maybe_none('adult_confirmed') is True
-
-    @staticmethod
-    def error_message(player, values):
-        if values['willing_to_participate']:
-            if values['cookies_allowed'] is None:
-                return {'cookies_allowed': 'Please choose whether to allow the optional cookie test.'}
-            if values['cookies_allowed'] and values['cookie_probe_status'] == 'declined':
-                return {'cookies_allowed': 'The browser test status conflicts with your selection. Please select again.'}
 
     @staticmethod
     def before_next_page(player, timeout_happened):
@@ -98,9 +98,10 @@ class VoluntaryParticipation(Page):
         player.exit_reason = '' if player.eligible else 'declined'
         player.participant.eligible = player.eligible
         player.participant.exit_reason = player.exit_reason
+        player.participant.show_reference = player.eligible
         if player.eligible:
-            player.participant.cookies_allowed = player.cookies_allowed
-            if not player.cookies_allowed:
+            player.participant.cookies_allowed = player.field_maybe_none('cookies_allowed') is True
+            if not player.participant.cookies_allowed:
                 player.cookie_probe_status = 'declined'
         else:
             player.cookies_allowed = None
@@ -108,7 +109,7 @@ class VoluntaryParticipation(Page):
             player.participant.cookies_allowed = None
 
 
-class Exit(Page):
+class Exit(ConsentTimingPage):
     @staticmethod
     def is_displayed(player):
         return not player.participant.eligible
@@ -121,4 +122,4 @@ class CookiePreferences(Page):
         return False
 
 
-page_sequence = [AgeConfirmation, Introduction, VoluntaryParticipation, Exit]
+page_sequence = [AgeConfirmation, VoluntaryParticipation, Exit]

@@ -1,4 +1,7 @@
 from otree.api import *
+from timing import ConsentTimingPage
+from .countries import COUNTRIES
+from .questions_v5 import INCOME as V5_INCOME, RENT as V5_RENT, CHILDREN, EDUCATION
 from .questions import AGE, RENT, INCOME, EXPOSURE
 from .forms import prepare_numeric_fields
 from .validation import income_in_sek
@@ -27,8 +30,14 @@ class Player(BasePlayer):
     previous_residence_near_nuclear = models.BooleanField(blank=True)
     placeholder_completed = models.BooleanField(initial=False)
 
+    residence_code = models.StringField(label='In which country or region do you currently live?', choices=COUNTRIES + [('unable', 'Unable to select'), ('prefer_not', 'Prefer not to tell')])
+    income_category = models.StringField(label='Approximately what is your monthly personal income after tax?', choices=V5_INCOME, widget=widgets.RadioSelect)
+    rent_category = models.StringField(label='About how much does your household pay in rent or mortgage per month?', choices=V5_RENT, widget=widgets.RadioSelect, blank=True)
+    children_under_18 = models.StringField(label='Do any children under 18 live in your household?', choices=CHILDREN, widget=widgets.RadioSelect)
+    education_completed = models.StringField(label='What is the highest level of education you have completed?', choices=EDUCATION, widget=widgets.RadioSelect)
+
     age_group = models.StringField(label=AGE['wording'], choices=AGE['choices'], widget=widgets.RadioSelect)
-    rent_status = models.BooleanField(label=RENT['wording'], choices=RENT['choices'])
+    rent_status = models.BooleanField(label='Do you currently pay rent or a mortgage for your accommodation?', choices=RENT['choices'], widget=widgets.RadioSelect)
     monthly_rent_sek = models.IntegerField(label=RENT['amount_wording'], min=None, blank=True)
     income_thousand_sek = models.IntegerField(label=INCOME['wording'], min=None, blank=True)
     income_sek = models.IntegerField(min=None, blank=True)
@@ -38,35 +47,24 @@ class Player(BasePlayer):
     )
 
 
-class HouseholdInformation(Page):
+class HouseholdInformation(ConsentTimingPage):
     form_model = 'player'
-    form_fields = [
-        'age_group', 'rent_status', 'monthly_rent_sek',
-        'income_thousand_sek', 'income_not_disclosed', 'previous_power_plant_exposure',
-    ]
+    form_fields = ['age_group', 'residence_code', 'rent_status', 'rent_category',
+                   'income_category', 'children_under_18', 'education_completed']
 
     @staticmethod
     def is_displayed(player):
         return player.participant.eligible
 
     @staticmethod
-    def vars_for_template(player):
-        return dict(rent_question=RENT, income_question=INCOME, exposure_question=EXPOSURE)
-
-    # Narrow framework adapter: ordinary self here, unlike oTree page callbacks.
-    def get_form(self, instance, formdata=None):
-        form = super().get_form(instance, formdata=formdata)
-        if formdata is not None:
-            prepare_numeric_fields(form)
-        return form
+    def error_message(player, values):
+        if values['rent_status'] is True and not values['rent_category']:
+            return {'rent_category': 'Please choose an amount.'}
 
     @staticmethod
     def before_next_page(player, timeout_happened):
         if not player.rent_status:
-            player.monthly_rent_sek = None
-        if player.income_not_disclosed:
-            player.income_thousand_sek = None
-        player.income_sek = income_in_sek(player.field_maybe_none('income_thousand_sek'))
+            player.rent_category = None
         player.placeholder_completed = True
         player.participant.household_complete = True
 
