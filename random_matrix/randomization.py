@@ -12,15 +12,15 @@ from .facility_design import (DESIGN_HASH, DESIGN_VERSION, NUMERIC_MATRIX_VERSIO
                               TREATMENT_DESIGN_VERSION, SURVEY_VERSION, design_payload,
                               validate_plan, validate_assignment)
 
-ASSIGNMENT_METHOD = 'permuted-AB-pairs-atomic-entry-v2.4'
-DISPLAY_VERSION = 'housing-choice-v2.4'
+ASSIGNMENT_METHOD = 'stratified-three-each-atomic-v5'
+DISPLAY_VERSION = 'housing-choice-v5'
 
 
 def allocation_sequence(count, seed):
     rng = random.Random(seed)
     sequence = []
     while len(sequence) < count:
-        pair = ['A', 'B']
+        pair = ['stratified', 'stratified']
         rng.shuffle(pair)
         sequence.extend(pair)
     return sequence[:count]
@@ -28,15 +28,18 @@ def allocation_sequence(count, seed):
 
 def make_assignment(plan, block_id, seed, allocation_index, participant_code, session_code):
     rng = random.Random(seed)
-    sets = [s for s in plan['design']['choice_sets'] if s['block_id'] == block_id]
-    rng.shuffle(sets)
     if plan['sequence'][allocation_index - 1] != block_id:
-        raise RuntimeError('Block allocation index mismatch.')
-    # Two independent facility coins: near side differs within each facility pair.
+        raise RuntimeError('Allocation index mismatch.')
+    sets = []
+    for facility in ('nuclear', 'oil_fired'):
+        pool = [s for s in plan['design']['choice_sets'] if s['facility_type'] == facility]
+        sets.extend(rng.sample(pool, 3))
+    rng.shuffle(sets)
     near_sides = {}
     for facility in ('nuclear', 'oil_fired'):
         ids = sorted(s['choice_set_id'] for s in sets if s['facility_type'] == facility)
-        sides = ['A', 'B']
+        majority = rng.choice(['A', 'B'])
+        sides = [majority, majority, 'B' if majority == 'A' else 'A']
         rng.shuffle(sides)
         near_sides.update(zip(ids, sides))
     tasks = []
@@ -65,10 +68,10 @@ def make_assignment(plan, block_id, seed, allocation_index, participant_code, se
 
 def initialize_plan(subsession):
     config = subsession.session.config
-    if (config['study_mode'], config['data_class'], config['matrix_version'],
-            config.get('treatment_design_version'), config.get('survey_version')) != (
-            'pilot', 'synthetic', NUMERIC_MATRIX_VERSION, TREATMENT_DESIGN_VERSION, SURVEY_VERSION):
-        raise RuntimeError('V2.4 permits only the new synthetic Pilot configuration.')
+    if ((config.get('study_mode'), config.get('data_class')) not in {('live', 'production'), ('qa', 'synthetic')} or
+        (config.get('matrix_version'), config.get('treatment_design_version'), config.get('survey_version')) !=
+        (NUMERIC_MATRIX_VERSION, TREATMENT_DESIGN_VERSION, 'final')):
+        raise RuntimeError('Invalid Final session configuration.')
     if subsession.round_number != 1 or subsession.field_maybe_none('allocation_plan_json'):
         return
     seed = secrets.token_hex(32)
@@ -92,7 +95,7 @@ def stored_assignment(player):
 
 
 def assign_once(player):
-    """Claim an eligible entrant and all four tasks in one request transaction.
+    """Claim an eligible entrant and all six tasks in one request transaction.
 
     Compare-and-set the existing round-1 Player, then atomically increment the
     round-1 Subsession cursor. oTree commits the claim, cursor and snapshot
@@ -116,7 +119,7 @@ def assign_once(player):
     Subsession = type(subsession)
     plan = json.loads(subsession.allocation_plan_json)
     if (plan['session_code'], plan['study_mode'], plan['data_class']) != (
-            player.session.code, 'pilot', 'synthetic'):
+            player.session.code, player.session.config['study_mode'], player.session.config['data_class']):
         raise RuntimeError('Allocation plan/session mismatch.')
     validate_plan(plan)
     updated = dbq(Subsession).filter(Subsession.id == subsession.id,
@@ -127,7 +130,7 @@ def assign_once(player):
     cursor = dbq(Subsession.allocation_cursor).filter_by(id=subsession.id).scalar()
     assignment = make_assignment(plan, plan['sequence'][cursor - 1], secrets.token_hex(32),
                                  cursor, player.participant.code, player.session.code)
-    for task_player, task in zip(first.in_rounds(1, 4), assignment['tasks']):
+    for task_player, task in zip(first.in_rounds(1, 6), assignment['tasks']):
         for field in ('design_version', 'design_hash', 'block_id', 'assignment_method', 'display_version'):
             setattr(task_player, field, assignment[field])
         for field in ('task_index', 'presentation_order', 'choice_set_id', 'near_side', 'facility_type', 'premium_sek', 'base_rent_sek', 'side_swapped'):

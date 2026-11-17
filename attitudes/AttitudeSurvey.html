@@ -1,21 +1,10 @@
 {{ extends "global/SurveyBase.html" }}
-{{ block survey_title }}{{ attitude_title }}{{ endblock }}
-{{ block survey_intro }}{{ attitude_introduction }}{{ endblock }}
-{{ block survey_body }}
-<div class="survey-attitudes" data-attitudes-version="{{ attitudes_version }}">
-    <p class="survey-help">Choose one response for each statement. No answer is selected until you make a choice.</p>
-    {{ include 'attitudes/question_templates/D3_NuclearEconomic.html' }}
-    {{ include 'attitudes/question_templates/D5_HousingCost.html' }}
-    {{ include 'attitudes/question_templates/D1_NuclearSupport.html' }}
-    {{ include 'attitudes/question_templates/D4_NuclearClimate.html' }}
-    {{ include 'attitudes/question_templates/D2_NuclearRisk.html' }}
-</div>
-{{ endblock }}
-{{ block survey_navigation }}
-<div class="survey-navigation">
-    <p class="survey-navigation-note">Demonstration only. Please use invented responses.</p>
-    <div class="survey-next"><button type="submit" class="otree-btn-next btn btn-primary" data-continue-label="Submit and Continue">Submit and Continue</button></div>
-</div>
-{{ endblock }}
-
-{{ block scripts }}<script src="{{ static 'survey_ui/attitudes.js' }}" defer></script>{{ endblock }}
+{{ block survey_title }}Attitudes{{ endblock }}
+{{ block survey_intro }}Please choose one answer for each question.{{ endblock }}
+{{ block survey_body }}<div class="survey-attitudes">
+{{ include 'global/SurveyRadioField.html' with field=form.nuclear_economic }}
+{{ include 'global/SurveyRadioField.html' with field=form.nuclear_climate }}
+{{ include 'global/SurveyRadioField.html' with field=form.nuclear_support }}
+{{ include 'global/SurveyRadioField.html' with field=form.nuclear_risk }}
+{{ include 'global/SurveyRadioField.html' with field=form.housing_cost }}
+</div>{{ endblock }}

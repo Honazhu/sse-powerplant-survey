@@ -2,16 +2,17 @@
 {{ block survey_title }}Household information{{ endblock }}
 {{ block survey_intro }}Please tell us a little about your household circumstances.{{ endblock }}
 {{ block survey_body }}
-<aside class="survey-background">
-    <h2>Amounts in Swedish kronor</h2>
-    <p>All monetary amounts in this survey are expressed in Swedish kronor (SEK).</p>
-    <p>If you pay rent or receive income in another currency, please enter an approximate equivalent in SEK.</p>
-</aside>
+<p>All monetary amounts are expressed in Swedish kronor (SEK). If you use another currency, give an approximate equivalent in SEK.</p>
 <div data-household-questions>
-{{ include 'household/question_templates/Q2_AgeGroup.html' }}
-{{ include 'household/question_templates/Q3_HousingRent.html' }}
-{{ include 'household/question_templates/Q4_NetMonthlyIncome.html' }}
-{{ include 'household/question_templates/Q5_PowerPlantExposure.html' }}
-</div>
-{{ endblock }}
+{{ include 'global/SurveyRadioField.html' with field=form.age_group }}
+{{ include 'global/SurveyRadioField.html' with field=form.gender }}
+<div class="country-field"><label for="country-search">Search countries (optional)</label><input id="country-search" type="search" autocomplete="off" placeholder="Type a country name">{{ formfield 'residence_code' }}</div>
+{{ include 'global/SurveyRadioField.html' with field=form.main_activity }}
+{{ include 'global/SurveyRadioField.html' with field=form.rent_status_final }}
+<section id="rent-amount" class="survey-question"><h2>Approximately how much do you pay in rent or mortgage payments each month?</h2>{{ formfield 'monthly_rent_sek' }}{{ include 'global/SurveyRadioField.html' with field=form.rent_missing_reason }}</section>
+<section class="survey-question"><h2>What is your household's approximate total monthly income after tax?</h2><p>Please include the combined after-tax income of your household, in SEK per month.</p>{{ formfield 'household_income_after_tax' }}{{ include 'global/SurveyRadioField.html' with field=form.income_missing_reason }}</section>
+{{ include 'global/SurveyRadioField.html' with field=form.children_under_18 }}
+{{ include 'global/SurveyRadioField.html' with field=form.education_completed }}
+<section class="survey-question"><h2>Additional remarks or feedback</h2><p>This question is optional. Please do not include names, contact details, addresses or other identifying information.</p>{{ formfield 'additional_feedback' }}</section>
+</div>{{ endblock }}
 {{ block scripts }}<script src="{{ static 'survey_ui/household.js' }}" defer></script>{{ endblock }}

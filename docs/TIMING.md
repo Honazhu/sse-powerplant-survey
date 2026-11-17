@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 > Historical reference: consult V4_RELEASE_AUDIT.md and current source for the current flow and release status. Older versions and evidence links below may not describe this package.
 
 > **Current version note — 2026-11-15:** V2.2b retains the V2.2a timing flow below, with survey/wording V2.2b and treatment design V2.3. Join task timing to the saved facility_type; timing.py is unchanged. See [current evidence](UI_TESTING.md).

@@ -21,7 +21,7 @@ def clean_environment():
 def prepare_project(destination):
     destination = Path(destination).resolve()
     destination.mkdir(parents=True, exist_ok=False)
-    for name in ('settings.py', 'timing.py'):
+    for name in ('settings.py', 'timing.py', 'completion_v5.py'):
         shutil.copy(ROOT / name, destination / name)
     for name in ('eligibility', 'household', 'random_matrix', 'attitudes', '_templates', '_static', 'scripts', 'tests', 'analysis'):
         shutil.copytree(ROOT / name, destination / name, ignore=shutil.ignore_patterns('__pycache__'))
@@ -53,7 +53,7 @@ def check_database_schema(project):
             raise SystemExit('This database predates V3.3 survey flow. Use a new isolated Pilot; no migration performed.')
         with sqlite3.connect(database.as_uri() + '?mode=ro', uri=True) as connection:
             versions = connection.execute('SELECT DISTINCT survey_flow_version FROM eligibility_player').fetchall()
-        if any(row[0] != 'V3.3' for row in versions):
+        if any(row[0] != '5.0.0' for row in versions):
             raise SystemExit('Historical survey flow cannot resume under V3.3; use a new isolated Pilot.')
 
 

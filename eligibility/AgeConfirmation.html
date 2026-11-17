@@ -1,7 +1,9 @@
 {{ extends "global/SurveyBase.html" }}
-{{ block survey_title }}Age confirmation{{ endblock }}
-{{ block survey_intro }}This questionnaire is intended for adults aged 18 and over.{{ endblock }}
+{{ block survey_title }}Welcome to our housing survey{{ endblock }}
 {{ block survey_body }}
-{{ include 'global/SurveyBackground.html' with heading="Before you continue" & text="For this demonstration, answer on behalf of an invented respondent. An answer of No will end the test. No exact age or date of birth is requested." }}
+<p>Thank you for considering taking part in our university survey about housing preferences.</p>
+<p>You will be presented with hypothetical housing options and asked to indicate your preferences. Please consider your answers carefully and answer based on what you would choose in everyday life. There are no right or wrong answers. The survey takes about 5–8 minutes to complete.</p>
+<p>Participation is voluntary, and you may leave at any time. Your responses will be analyzed for a university assignment at the Stockholm School of Economics and shared with the course instructor for assessment. The next page contains additional information about data collection and data protection.</p>
+<p>This survey is for adults only. Please indicate below whether you are 18 years old or older. If you are not, you will be taken to the end of the survey without making any choices.</p>
 {{ include 'global/SurveyRadioField.html' with field=form.adult_confirmed }}
 {{ endblock }}

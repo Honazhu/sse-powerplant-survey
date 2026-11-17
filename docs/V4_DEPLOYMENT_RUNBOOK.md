@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # Next-session deployment runbook — approvals required
 
 The following is a future plan, not work completed in this session. Hosted deployment is blocked until PostgreSQL, driver, production preconditions, privacy and branding have been reviewed. The existing code accepts synthetic Pilot sessions only and blocks Live; do not invite friends to provide real responses under that configuration.

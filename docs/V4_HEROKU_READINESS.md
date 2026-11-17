@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # Heroku readiness
 
 **NOT VERIFIED for deployment.** Heroku CLI was not found; app existence, region, stack, database, dynos, configuration, costs and GitHub integration were not inspected. The intended region is EU only if actual metadata confirms it. No resource was created.

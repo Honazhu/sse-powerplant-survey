@@ -1,12 +1,9 @@
-{{ if participant.eligible }}
+{{ if participant.show_reference }}
 <aside class="survey-reference" aria-label="Survey Reference ID">
 <div class="survey-reference-row"><div><span class="survey-reference-label">Survey Reference ID</span>
 <span class="survey-reference-code" id="survey-reference-code">{{ participant.code }}</span></div>
 <button type="button" class="survey-copy-id" data-copy-reference>Copy ID</button>
 <span class="survey-help" data-copy-status role="status" aria-live="polite"></span></div>
-{{ if C.NAME_IN_URL == 'random_matrix' and player.round_number == 1 }}
-<p class="survey-help">Please keep your Survey Reference ID if you may wish to request the deletion of your responses later.</p>
-{{ endif }}
 <noscript><p class="survey-help">Select the reference code to copy it manually.</p></noscript>
 </aside>
 {{ endif }}

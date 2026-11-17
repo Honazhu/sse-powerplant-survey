@@ -1,20 +1,6 @@
 {{ extends "global/SurveyBase.html" }}
-{{ block survey_title }}Cookie preferences{{ endblock }}
-{{ block survey_intro }}You can choose whether to allow a temporary browser test.{{ endblock }}
+{{ block survey_title }}Optional cookies{{ endblock }}
 {{ block survey_body }}
-{{ include 'global/SurveyBackground.html' with heading="An optional browser check" & text="If you allow the test, this page writes, reads and immediately deletes a temporary first-party cookie. It contains only a test value, with no participant identifier." }}
-<div class="survey-copy">
-    <p>You can decline and continue. This choice controls this browser test only; it does not control cookies that oTree or a future hosting platform may use. No optional analytics or advertising cookies are added by this project.</p>
-    <p>Page completion times are recorded independently of this choice. Elapsed time includes time spent away from the tab.</p>
-</div>
+<p>If you accept cookies, we record how long you spend on subsequent survey pages when you submit them. This helps us understand how participants make their decisions. If you decline, we do not use page timing data in our research, and you can still complete the survey. Essential session cookies may still be needed for the survey to work.</p>
 {{ include 'global/SurveyRadioField.html' with field=form.cookies_allowed }}
-<input type="hidden" name="cookie_probe_status" id="cookie-probe-status" value="not_tested">
-{{ formfield_errors 'cookie_probe_status' }}
-<p class="survey-status" id="cookie-probe-message" aria-live="polite">Browser test has not run.</p>
-<noscript><p class="survey-status">JavaScript is disabled. Browser support cannot be tested; you may continue.</p></noscript>
-<details class="survey-details"><summary>About this demonstration</summary>
-<p>The test cookie is named <code>nuclear_cookie_probe</code> and contains only the value <code>1</code>. The final participant notice and hosting cookie inventory will be confirmed before real use.</p></details>
-{{ endblock }}
-{{ block scripts }}
-<script src="{{ static 'cookie_probe.js' }}"></script>
 {{ endblock }}

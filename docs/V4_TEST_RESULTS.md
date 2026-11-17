@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # V4 test results
 
 Run date: 2026-11-15. Python 3.11.17, oTree 6.0.15, macOS. All runtime application source is unchanged from baseline.

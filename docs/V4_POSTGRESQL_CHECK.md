@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # PostgreSQL check
 
 **NOT TESTED.** No `psql` or `postgres` executable and no isolated PostgreSQL service were established. No existing database was opened for writes, migrated or reset. The local environment has oTree 6.0.15 and SQLAlchemy 1.3.22, but no psycopg2 or psycopg2-binary; production `requirements.txt` contains only oTree. A compatible, reviewed and pinned PostgreSQL driver must be added and tested on Linux before deployment. Do not use SQLite or dyno-local files as production storage.

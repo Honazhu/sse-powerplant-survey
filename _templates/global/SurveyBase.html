@@ -1,5 +1,5 @@
 {{ extends "otree/Page.html" }}
-{{ block head_title }}Power Plant Proximity &amp; Housing Preferences Survey · SSE 5327{{ endblock }}
+{{ block head_title }}Housing survey{{ endblock }}
 {{ block tab_title_data }}{{ endblock }}
 {{ block title }}{{ endblock }}
 {{ block debug_info }}{{ endblock }}
@@ -15,14 +15,11 @@
 <main lang="en" id="survey-main" tabindex="-1">
     {{ super() }}
 </main>
-<footer lang="en" class="survey-footer">Student course research · Local demonstration only</footer>
+<footer lang="en" class="survey-footer"><span>Technology: oTree · GitHub · Heroku (Salesforce)</span><div class="technology-logos"><a href="https://www.otree.org/" class="technology-otree"><img src="{{ static 'survey_ui/brand/technology/otree.png' }}" alt="oTree"></a><a href="https://github.com/"><img src="{{ static 'survey_ui/brand/technology/github.svg' }}" alt="GitHub"></a><a href="https://www.heroku.com/"><img src="{{ static 'survey_ui/brand/technology/salesforce.png' }}" alt="Salesforce, parent company of Heroku"></a></div></footer>
 {{ endblock }}
 {{ block content }}
 {{ include 'global/SurveyReferenceBadge.html' }}
-<div class="survey-masthead">
-    <span class="survey-eyebrow">Power Plant Proximity &amp; Housing Preferences Survey</span>
-    <span class="survey-badge">DEMO</span>
-</div>
+
 {{ include 'global/SurveyProgress.html' }}
 <div class="survey-heading">
     <h1>{{ block survey_title }}Questionnaire{{ endblock }}</h1>

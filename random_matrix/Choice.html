@@ -1,8 +1,7 @@
 {{ extends "global/SurveyBase.html" }}
 {{ block survey_title }}Choosing a Rental Home{{ endblock }}
-{{ block survey_intro }}Choice {{ task.task_index }} of 4{{ endblock }}
+{{ block survey_intro }}Question {{ task.task_index }} of 6{{ endblock }}
 {{ block survey_body }}
-<p class="survey-help" id="power-plant-context" data-facility-type="{{ task.facility_type }}">Power plant context: {{ power_plant_context }}</p>
 <h2 id="choice-question">Which home would you prefer to rent?</h2>
 <div class="survey-housing-grid survey-dce" data-choice-set="{{ task.choice_set_id }}" data-task="{{ task.task_index }}" data-wording-version="{{ wording_version }}">
     {{ include 'random_matrix/Home.html' with side='A' & home=task.A & rent_display=rent_labels.A }}

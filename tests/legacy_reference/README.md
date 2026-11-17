@@ -1,0 +1,3 @@
+# Historical tests, not the Final test suite
+
+These files are preserved unchanged from the V5 copy for historical review. They target the former four-task V2.4 and V3.3 slider / attitude export and/or V5-only session configuration; they are not valid acceptance tests for the Final schema or app order. They are not collected by the Final suite. Run V5's own tests in the separate `survey-v5` runtime, not against a Final database. Final replacements exercise attitude scores and missingness, consent, six-task design and partial completion, export schema, safety, deletion, and HTTP journey. The preservation is not a claim that historical test files pass against Final.

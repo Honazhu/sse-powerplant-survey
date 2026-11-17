@@ -1,0 +1,2 @@
+# Optional, local browser QA only; use installed Chrome or set FINAL_CHROME.
+playwright>=1.48,<2

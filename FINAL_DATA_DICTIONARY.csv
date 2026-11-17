@@ -1,0 +1,101 @@
+variable_name,question_text,response_values,numeric_coding,missing_value_handling,conditional_display_rules,survey_version
+survey_reference_id,Survey Reference ID,participant code,,Not missing,All,final
+survey_version,Schema version,final,,Not missing,All,final
+session_code,oTree session identifier,string,,Not missing,All,final
+study_mode,Study mode,live,,Not missing,Production only,final
+data_class,Data class,production,,Not missing,Production only,final
+matrix_version,Matrix version,V2.4,,Not missing,All,final
+treatment_design_version,Allocation version,V5.0,,Not missing,All,final
+numeric_matrix_hash,Numeric matrix digest,SHA-256,,Not missing,All,final
+consent,Participation consent,True,,Not missing,All,final
+timing_consent,Page timing consent,True / False,,Not missing,All,final
+completion_status,Completion,completed,,Not missing,All,final
+assignment_json,Persisted treatment assignment,JSON,,Not missing,All,final
+age_group,Which age group do you belong to?,"18_25,26_35,36_45,46_55,56_65,66_plus,prefer_not",,prefer_not explicit,All,final
+gender,What is your gender?,"male,female,non_binary,prefer_not",,prefer_not explicit,All,final
+residence_code,Country or region of residence,"ISO alpha-2, unable, prefer_not",,prefer_not or unable explicit,All,final
+main_activity,Which best describes your main activity?,"student,employed,self_employed,unemployed,retired,caregiver,other,prefer_not",,prefer_not explicit,All,final
+rent_status_final,Do you pay rent or a mortgage?,"yes,no,prefer_not",,prefer_not explicit,All,final
+monthly_rent_sek,Monthly rent/mortgage in SEK,Integer 0–100000000,,Blank for skipped or explicit missing; see reason,rent_status_final=yes,final
+rent_missing_reason,Rent missing reason,"dont_know,prefer_not",,Blank when numeric or skipped,rent_status_final=yes,final
+household_income_after_tax,Household total monthly income after tax in SEK,Integer 0–100000000,,Blank for explicit missing; see reason,All,final
+income_missing_reason,Income missing reason,"dont_know,prefer_not",,Blank when numeric,All,final
+children_under_18,Children under 18 in household?,"yes,no,prefer_not",,prefer_not explicit,All,final
+education_completed,Highest completed education,"primary,lower_secondary,upper_secondary,bachelor,master,doctorate,prefer_not",,prefer_not explicit,All,final
+additional_feedback,Additional remarks or feedback,Free text up to 1500 characters,,Blank optional,All,final
+nuclear_economic,"What effect, if any, does nuclear power have on Sweden's economy?",Very positive; Somewhat positive; No effect; Somewhat negative; Very negative,2;1;0;-1;-2,Blank if explicit dont_know,All completed participants,final
+nuclear_economic_missing_reason,"What effect, if any, does nuclear power have on Sweden's economy? missing reason",dont_know,,Blank for substantive score,All completed participants,final
+nuclear_climate,How much does nuclear power reduce greenhouse gas emissions compared with fossil fuels?,A great deal; A lot; A moderate amount; A little; Not at all,2;1;0;-1;-2,Blank if explicit dont_know,All completed participants,final
+nuclear_climate_missing_reason,How much does nuclear power reduce greenhouse gas emissions compared with fossil fuels? missing reason,dont_know,,Blank for substantive score,All completed participants,final
+nuclear_support,Support or oppose nuclear electricity in Sweden?,Strongly support; Somewhat support; Neither; Somewhat oppose; Strongly oppose,2;1;0;-1;-2,Blank if explicit prefer_not,All completed participants,final
+nuclear_support_missing_reason,Support or oppose nuclear electricity in Sweden? missing reason,prefer_not,,Blank for substantive score,All completed participants,final
+nuclear_risk,Concern about safety near an operating nuclear plant?,Extremely; Very; Somewhat; Slightly; Not at all concerned,2;1;0;-1;-2,Blank if explicit prefer_not,All completed participants,final
+nuclear_risk_missing_reason,Concern about safety near an operating nuclear plant? missing reason,prefer_not,,Blank for substantive score,All completed participants,final
+housing_cost,Importance of keeping monthly housing cost low?,Extremely; Very; Somewhat; Slightly; Not at all important,2;1;0;-1;-2,Blank if explicit prefer_not,All completed participants,final
+housing_cost_missing_reason,Importance of keeping monthly housing cost low? missing reason,prefer_not,,Blank for substantive score,All completed participants,final
+choice_1_choice_set_id,Housing choice task 1: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_1_facility_type,Housing choice task 1: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_1_A_distance_km,Housing choice task 1: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_1_A_rent_sek_month,Housing choice task 1: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_1_B_distance_km,Housing choice task 1: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_1_B_rent_sek_month,Housing choice task 1: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_1_choice,Housing choice task 1: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_1_near_side,Housing choice task 1: A or B,A or B,,Not missing,All completed,final
+choice_1_side_swapped,Housing choice task 1: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_1_task_duration_s,Housing choice task 1: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_1_task_timing_status,Housing choice task 1: Timing status,Timing status,,Not missing,All completed,final
+choice_2_choice_set_id,Housing choice task 2: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_2_facility_type,Housing choice task 2: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_2_A_distance_km,Housing choice task 2: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_2_A_rent_sek_month,Housing choice task 2: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_2_B_distance_km,Housing choice task 2: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_2_B_rent_sek_month,Housing choice task 2: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_2_choice,Housing choice task 2: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_2_near_side,Housing choice task 2: A or B,A or B,,Not missing,All completed,final
+choice_2_side_swapped,Housing choice task 2: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_2_task_duration_s,Housing choice task 2: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_2_task_timing_status,Housing choice task 2: Timing status,Timing status,,Not missing,All completed,final
+choice_3_choice_set_id,Housing choice task 3: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_3_facility_type,Housing choice task 3: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_3_A_distance_km,Housing choice task 3: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_3_A_rent_sek_month,Housing choice task 3: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_3_B_distance_km,Housing choice task 3: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_3_B_rent_sek_month,Housing choice task 3: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_3_choice,Housing choice task 3: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_3_near_side,Housing choice task 3: A or B,A or B,,Not missing,All completed,final
+choice_3_side_swapped,Housing choice task 3: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_3_task_duration_s,Housing choice task 3: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_3_task_timing_status,Housing choice task 3: Timing status,Timing status,,Not missing,All completed,final
+choice_4_choice_set_id,Housing choice task 4: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_4_facility_type,Housing choice task 4: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_4_A_distance_km,Housing choice task 4: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_4_A_rent_sek_month,Housing choice task 4: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_4_B_distance_km,Housing choice task 4: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_4_B_rent_sek_month,Housing choice task 4: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_4_choice,Housing choice task 4: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_4_near_side,Housing choice task 4: A or B,A or B,,Not missing,All completed,final
+choice_4_side_swapped,Housing choice task 4: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_4_task_duration_s,Housing choice task 4: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_4_task_timing_status,Housing choice task 4: Timing status,Timing status,,Not missing,All completed,final
+choice_5_choice_set_id,Housing choice task 5: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_5_facility_type,Housing choice task 5: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_5_A_distance_km,Housing choice task 5: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_5_A_rent_sek_month,Housing choice task 5: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_5_B_distance_km,Housing choice task 5: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_5_B_rent_sek_month,Housing choice task 5: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_5_choice,Housing choice task 5: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_5_near_side,Housing choice task 5: A or B,A or B,,Not missing,All completed,final
+choice_5_side_swapped,Housing choice task 5: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_5_task_duration_s,Housing choice task 5: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_5_task_timing_status,Housing choice task 5: Timing status,Timing status,,Not missing,All completed,final
+choice_6_choice_set_id,Housing choice task 6: Candidate set ID,Candidate set ID,,Not missing,All completed,final
+choice_6_facility_type,Housing choice task 6: nuclear or oil_fired,nuclear or oil_fired,,Not missing,All completed,final
+choice_6_A_distance_km,Housing choice task 6: Home A distance (km),Home A distance (km),,Not missing,All completed,final
+choice_6_A_rent_sek_month,Housing choice task 6: Home A rent (SEK/month),Home A rent (SEK/month),,Not missing,All completed,final
+choice_6_B_distance_km,Housing choice task 6: Home B distance (km),Home B distance (km),,Not missing,All completed,final
+choice_6_B_rent_sek_month,Housing choice task 6: Home B rent (SEK/month),Home B rent (SEK/month),,Not missing,All completed,final
+choice_6_choice,Housing choice task 6: Chosen home A or B,Chosen home A or B,,Not missing,All completed,final
+choice_6_near_side,Housing choice task 6: A or B,A or B,,Not missing,All completed,final
+choice_6_side_swapped,Housing choice task 6: Boolean side swap,Boolean side swap,,Not missing,All completed,final
+choice_6_task_duration_s,Housing choice task 6: Opt-in task duration in seconds,Opt-in task duration in seconds,,Blank duration without timing consent,All completed,final
+choice_6_task_timing_status,Housing choice task 6: Timing status,Timing status,,Not missing,All completed,final

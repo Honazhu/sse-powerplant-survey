@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # V4 GitHub release manifest
 
 Package location at audit time: `/private/tmp/sse-powerplant-survey-release` (temporary; move to a durable approved location after review). Intended repository `sse-powerplant-survey`, private, branch `main`. Local Git is initialized and these files are staged for review; no commit or remote is created. The 129 staged files occupy approximately 1.8 MiB excluding `.git`. The exact file list follows. `SHA256SUMS` hashes every listed file except itself; run `shasum -a 256 -c SHA256SUMS` to verify. Hashes of original protected files were separately checked against their baseline.
