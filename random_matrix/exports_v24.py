@@ -1,4 +1,7 @@
-"""Strict V2.4 native -> task/wide/alternative/difference adapter; no database access."""
+"""Historical V2.4 four-task adapter; not a Final research export.
+
+Final completed responses are exported by household.custom_export.
+"""
 import json
 from pathlib import Path
 from .matrix import PROFILE_FIELDS, DESIGN_VERSION, DESIGN_HASH, canonical_json

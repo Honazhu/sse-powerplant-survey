@@ -531,7 +531,7 @@ async def main():
         from analysis.merge_attitudes import merge_datasets,read_csv
         import pandas as pd
         native_text=http('/ExportWide');rows=list(csv.DictReader(io.StringIO(native_text)))
-        export_dir=ROOT/'data/synthetic'/('v3_3_1_browser_'+str(time.time_ns()));export_dir.mkdir(parents=True)
+        export_dir=ROOT/'data/synthetic'/('v3_3_1_browser_'+str(time.time_ns()));export_dir.mkdir()
         (export_dir/'README.md').write_text('Invented V3.3.1 UI patch browser Pilot records only. Questionnaire/flow remain V3.3. No real respondents.\n')
         (export_dir/'all_apps_wide.csv').write_text(native_text)
         records=list(d.records_from_native(rows));d.write_formats(records,export_dir)

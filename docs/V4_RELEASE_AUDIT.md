@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # V4 release audit — 2026-11-15
 
 **GitHub source: READY FOR PRIVATE GITHUB UPLOAD, subject to researcher review. HEROKU POSTGRESQL NOT VERIFIED; hosted deployment requires fixes.** This package preserves a synthetic pilot, not an enabled real-respondent survey. No remote push, deployment, resource purchase, DNS change or recruitment took place.

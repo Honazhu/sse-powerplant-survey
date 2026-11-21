@@ -1,3 +1,5 @@
+> **Historical reference — not the Final specification.** This file documents an earlier release. For the confirmed six-task Final flow, data and deployment procedures, see [README_FINAL.md](../README_FINAL.md) and the `FINAL_*` documents.
+
 # Handover
 
 This is a standalone, synthetic-only source packaging candidate, not a deployment approval. Review V4_RELEASE_AUDIT.md, V4_TEST_RESULTS.md, V4_POSTGRESQL_CHECK.md, V4_HEROKU_READINESS.md, V4_GITHUB_MANIFEST.md and V4_DEPLOYMENT_RUNBOOK.md in that order. The Live Guard and synthetic-only restrictions are intact.
